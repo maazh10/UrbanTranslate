@@ -4,23 +4,17 @@ import {
     View,
     TextInput,
     Text,
+    Button,
 } from 'react-native';
 import { apiService } from './apiService';
 
-const Define = () => {
+const Translate = () => {
     const [inputText, setInputText] = useState('');
     const [translatedText, setTranslatedText] = useState('');
 
-    const defineWord = async (word) => {
-        const res = await apiService.define(word);
-        const definition = res.definition;
-        const example = res.example;
-        setTranslatedText(`Definition: ${definition}\n\nExample: ${example}`);
-    };
-
-    const handleInputChange = (word) => {
-        setInputText(word);
-        defineWord(word);
+    const translate = async (text) => {
+        const translation = await apiService.translate(text);
+        setTranslatedText(translation);
     };
 
     return (
@@ -32,15 +26,18 @@ const Define = () => {
                 <View style={styles.inputContainer}>
                     <TextInput
                         style={styles.input}
-                        placeholder="Enter word to translate"
+                        placeholder="Enter text to translate"
                         value={inputText}
-                        onChangeText={handleInputChange}
+                        onChangeText={(text) => setInputText(text)}
                     />
                 </View>
                 <View style={styles.translationContainer}>
                     <Text style={styles.translationText}>
                         {translatedText}
                     </Text>
+                </View>
+                <View style={styles.btnContainer}>
+                    <Button style={styles.translateBtn} title="Translate" onPress={() => translate(inputText)} />
                 </View>
             </View>
         </View>
@@ -52,7 +49,6 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 20,
         backgroundColor: '#f8f9fa',
-        paddingTop: 50,
         paddingBottom: 100,
     },
     title: {
@@ -62,33 +58,35 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     inputContainer: {
-        height: 60,
         marginBottom: 20,
         borderWidth: 1,
         borderColor: '#ced4da',
         borderRadius: 8,
         backgroundColor: '#ffffff',
+        flexGrow: 1,
     },
     input: {
         padding: 12,
         fontSize: 20,
     },
     translationContainer: {
-        flex: 1,
-        padding: 12,
         borderWidth: 1,
         borderColor: '#ced4da',
         borderRadius: 8,
         backgroundColor: '#e2e8f0',
+        paddingHorizontal: 12,
+        paddingBottom: 30,
+        flexGrow: 1,
     },
     translationText: {
         fontSize: 20,
-        color: '#1f2937',
+    },
+    btnContainer: {
+        marginTop: 20,
     },
     bottom: {
         flex: 1,
-        justifyContent: 'center',
     },
 });
 
-export default Define;
+export default Translate;
