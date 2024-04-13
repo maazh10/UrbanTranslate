@@ -22,7 +22,7 @@ const tokenizeText = (text) => {
 const define = async (word) => {
     const response = await axios.get(`https://api.urbandictionary.com/v0/define?term=${word}`);
     if (response.data.list.length === 0)
-        return word;
+        return { definition: 'No definition found', example: '' };
     const def = response.data.list.reduce((acc, curr) => {
         if (curr.thumbs_up > acc.thumbs_up) {
             return curr;
