@@ -19,7 +19,7 @@ const Define = () => {
             const example = res.example;
             setTranslatedText(`Definition: ${definition}\n\nExample: ${example}`);
         } catch (error) {
-            setTranslatedText(`No definition found for ${word}`);
+            setTranslatedText(`Something went wrong...`);
         }
     };
 
@@ -39,7 +39,12 @@ const Define = () => {
                         style={styles.input}
                         placeholder="Enter word to translate"
                         value={inputText}
-                        onChangeText={handleInputChange}
+                        onChangeText={(text) => {
+                            const newText = text.replace(/\s/g, '');
+                            if (newText.length <= 20) {
+                                handleInputChange(newText);
+                            }
+                        }}
                     />
                 </View>
                 <View style={styles.translationContainer}>
