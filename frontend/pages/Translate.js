@@ -34,6 +34,7 @@ const Translate = () => {
                         style={styles.input}
                         placeholder="Enter text to translate"
                         value={inputText}
+                        multiline={true}
                         onChangeText={(text) => setInputText(text)}
                     />
                 </View>

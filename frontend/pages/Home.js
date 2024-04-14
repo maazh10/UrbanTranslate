@@ -5,8 +5,16 @@ import {
   Text,
   Pressable,
 } from 'react-native';
+import { ThemedButton } from 'react-native-really-awesome-button';
 
 const Home = ({ navigation }) => {
+  const [isPressed, setIsPressed] = React.useState(false);
+
+  const textColor = isPressed ? '#f8f9fa' : '#1f2937';
+
+  React.useEffect(() => {
+    setIsPressed(false);
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -15,14 +23,29 @@ const Home = ({ navigation }) => {
         <Text style={styles.title}>Urban Translate.</Text>
       </View>
       <View style={styles.bottom}>
-        <Pressable style={styles.btnContainer} onPress={() => navigation.navigate('Define')}>
-          <Text style={styles.btnText}>I would like to define a word</Text>
-        </Pressable>
-        <Pressable style={styles.btnContainer} onPress={() => navigation.navigate('Translate')}>
-          <Text style={styles.btnText}>I would like to translate a sentence</Text>
-        </Pressable>
+        <ThemedButton
+          name="bruce"
+          type="primary"
+          width="100%"
+          height={70}
+          backgroundColor='#1f2937'
+          backgroundDarker='#2f3e53'
+          textSize={30}
+          onPress={() => navigation.navigate('Define')}
+        ><Text style={styles.btnText}>Define a word</Text></ThemedButton>
+        <ThemedButton
+          name="bruce"
+          type="primary"
+          width="100%"
+          height={70}
+          backgroundColor='#1f2937'
+          backgroundDarker='#2f3e53'
+          textSize={30}
+          style={{ marginTop: 20 }}
+          onPress={() => navigation.navigate('Translate')}
+        ><Text style={styles.btnText}>Translate a sentence</Text></ThemedButton>
       </View>
-    </View>
+    </View >
   );
 };
 
@@ -31,8 +54,8 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: '#f8f9fa',
-    paddingTop: 100,
-    paddingBottom: 100,
+    paddingVertical: 100,
+    paddingHorizontal: 35,
   },
   welcome: {
     fontSize: 30,
@@ -49,14 +72,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
-  btnContainer: {
-    backgroundColor: '#1f2937',
-    padding: 20,
-    borderRadius: 50,
-    marginBottom: 20
-  },
   btnText: {
-    color: '#ffffff',
+    color: '#f8f9fa',
     fontSize: 20,
     textAlign: 'center',
   },
