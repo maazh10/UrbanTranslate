@@ -3,18 +3,10 @@ import {
   StyleSheet,
   View,
   Text,
-  Pressable,
 } from 'react-native';
 import { ThemedButton } from 'react-native-really-awesome-button';
 
 const Home = ({ navigation }) => {
-  const [isPressed, setIsPressed] = React.useState(false);
-
-  const textColor = isPressed ? '#f8f9fa' : '#1f2937';
-
-  React.useEffect(() => {
-    setIsPressed(false);
-  }, []);
 
   return (
     <View style={styles.container}>

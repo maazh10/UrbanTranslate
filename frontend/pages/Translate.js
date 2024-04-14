@@ -6,7 +6,7 @@ import {
     Text,
     Button,
 } from 'react-native';
-import { ApiService } from '../services/apiService';
+import { ApiService } from '../services/ApiService';
 
 const Translate = () => {
     const [inputText, setInputText] = useState('');
