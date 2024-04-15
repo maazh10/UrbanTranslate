@@ -51,11 +51,11 @@ const translate = async (sentence, words, definitions) => {
     return translation.replace(/\n/g, '').trim();
 }
 
-app.get('/api/', (req, res) => {
+app.get('/', (req, res) => {
     res.send('Welcome to Urban Translate API');
 });
 
-app.get('api/define/:word', async (req, res) => {
+app.get('/api/define/:word', async (req, res) => {
     const word = req.params.word;
     if (!word)
         res.status(400).send('Word parameter is required');
@@ -63,7 +63,7 @@ app.get('api/define/:word', async (req, res) => {
     res.send(def);
 });
 
-app.get('api/translate/:sentence', async (req, res) => {
+app.get('/api/translate/:sentence', async (req, res) => {
     const sentence = req.params.sentence;
     if (!sentence)
         res.status(400).send('Sentence parameter is required');
