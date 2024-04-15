@@ -11,7 +11,7 @@ const Home = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.top}>
-        <Text style={styles.welcome}>Welcome to</Text>
+        <Text style={styles.welcome}>Welcome to 👋</Text>
         <Text style={styles.title}>Urban Translate.</Text>
       </View>
       <View style={styles.bottom}>
@@ -20,6 +20,7 @@ const Home = ({ navigation }) => {
           type="primary"
           width="100%"
           height={70}
+          borderRadius={60}
           backgroundColor='#1f2937'
           backgroundDarker='#2f3e53'
           textSize={30}
@@ -30,6 +31,7 @@ const Home = ({ navigation }) => {
           type="primary"
           width="100%"
           height={70}
+          borderRadius={60}
           backgroundColor='#1f2937'
           backgroundDarker='#2f3e53'
           textSize={30}
@@ -48,6 +50,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#f8f9fa',
     paddingVertical: 100,
     paddingHorizontal: 35,
+  },
+  top: {
+    width: '100%',
   },
   welcome: {
     fontSize: 30,

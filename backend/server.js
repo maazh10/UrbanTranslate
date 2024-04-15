@@ -47,7 +47,7 @@ const translate = async (sentence, words, definitions) => {
     });
 
     const translation = response.choices[0].text;
-    return translation;
+    return translation.replace(/\n/g, '').trim();
 }
 
 app.get('/define/:word', async (req, res) => {
@@ -60,7 +60,7 @@ app.get('/translate/:sentence', async (req, res) => {
     const sentence = req.params.sentence;
     const words = tokenizeText(sentence);
     const definitions = await Promise.all(words.map(
-        async (word) => await define(word)));
+        async (word) => (await define(word)).definition));
     let translation = await translate(sentence, words, definitions);
     if (translation.includes(':'))
         translation = translation.slice(translation.indexOf(':') + 2);

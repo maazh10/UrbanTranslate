@@ -8,8 +8,6 @@ import {
     Keyboard,
     ToastAndroid,
     Text,
-    KeyboardAvoidingView,
-    Platform,
     ScrollView
 } from 'react-native';
 
@@ -33,7 +31,6 @@ const Define = () => {
         setShowBottomContainer(true);
 
         try {
-
             const api = new ApiService();
             const { definition, example } = await api.define(word);
 
@@ -46,7 +43,6 @@ const Define = () => {
                 duration: 1000,
                 useNativeDriver: true,
             }).start();
-
         } catch (error) {
             setTranslatedText(`Something went wrong...`);
         }
