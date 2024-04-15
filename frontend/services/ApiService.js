@@ -3,7 +3,7 @@ import axios from 'axios';
 class ApiService {
     constructor() {
         this.api = axios.create({
-            baseURL: 'http://192.168.2.220:3000'
+            baseURL: process.env.EXPO_PUBLIC_API_URL
         });
     }
 

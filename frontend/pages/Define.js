@@ -7,7 +7,8 @@ import {
     Animated,
     Keyboard,
     Text,
-    ScrollView
+    ScrollView,
+    ActivityIndicator
 } from 'react-native';
 
 import { AntDesign } from '@expo/vector-icons';
@@ -20,6 +21,7 @@ const Define = () => {
     const [definition, setDefinition] = useState('');
     const [example, setExample] = useState('');
     const [showBottomContainer, setShowBottomContainer] = useState(false);
+    const [loading, setLoading] = useState(false);
     const opacity = useRef(new Animated.Value(0)).current;
 
     const defineWord = async (word) => {
@@ -38,8 +40,10 @@ const Define = () => {
         setShowBottomContainer(true);
 
         try {
+            setLoading(true);
             const api = new ApiService();
             const { definition, example } = await api.define(word);
+            setLoading(false);
 
             setDefinition(definition || `No definition found for ${word}`);
             setExample(example || `No example found for ${word}`);
@@ -55,10 +59,10 @@ const Define = () => {
         }
     };
 
-    const handleInputChange = (word) => {
+    const handleInputChange = (text) => {
         const newText = text.replace(/\s/g, '');
         if (newText.length <= 20) {
-            setInputText(word);
+            setInputText(text);
         }
     }
 
@@ -85,8 +89,11 @@ const Define = () => {
                     </TouchableOpacity>
 
                 </View>
-
-                {showBottomContainer && (
+                {loading ? (
+                    <View style={styles.loading}>
+                        <ActivityIndicator size="large" color="#0000ff" />
+                    </View>
+                ) : showBottomContainer && (
                     <View style={styles.bottomContainer}>
                         <View>
                             <Text style={styles.title}> Definition</Text>
@@ -111,7 +118,8 @@ const Define = () => {
                                 </Animated.Text>
                             </View>
                         </View>
-                    </View>)}
+                    </View>
+                )}
 
             </View>
 
@@ -179,6 +187,11 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#ced4da',
     },
+    loading: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
 });
 
 export default Define;
