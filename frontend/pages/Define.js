@@ -6,12 +6,12 @@ import {
     TouchableOpacity,
     Animated,
     Keyboard,
-    ToastAndroid,
     Text,
     ScrollView
 } from 'react-native';
 
 import { AntDesign } from '@expo/vector-icons';
+import Toast from 'react-native-toast-message';
 
 import { ApiService } from '../services/ApiService';
 
@@ -24,7 +24,14 @@ const Define = () => {
 
     const defineWord = async (word) => {
         if (!word) {
-            ToastAndroid.show('Please enter a word', ToastAndroid.SHORT);
+            Toast.show({
+                type: 'error',
+                position: 'bottom',
+                text1: 'Error',
+                text2: 'Please enter a word to define',
+                visibilityTime: 3000,
+                autoHide: true,
+            });
             return;
         }
 
@@ -49,8 +56,11 @@ const Define = () => {
     };
 
     const handleInputChange = (word) => {
-        setInputText(word);
-    };
+        const newText = text.replace(/\s/g, '');
+        if (newText.length <= 20) {
+            setInputText(word);
+        }
+    }
 
     return (
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -62,12 +72,7 @@ const Define = () => {
                         style={styles.input}
                         placeholder="Enter word to translate"
                         value={inputText}
-                        onChangeText={(text) => {
-                            const newText = text.replace(/\s/g, '');
-                            if (newText.length <= 20) {
-                                handleInputChange(newText);
-                            }
-                        }}
+                        onChangeText={handleInputChange}
                         onSubmitEditing={() => defineWord(inputText)}
                     />
 

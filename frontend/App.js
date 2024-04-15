@@ -5,6 +5,8 @@ import Home from './pages/Home';
 import Define from './pages/Define';
 import Translate from './pages/Translate';
 
+import Toast from 'react-native-toast-message';
+
 const Stack = createNativeStackNavigator();
 
 const MyStack = () => {
@@ -41,6 +43,7 @@ const MyStack = () => {
                     }}
                 />
             </Stack.Navigator>
+            <Toast />
         </NavigationContainer>
     );
 };

@@ -4,7 +4,10 @@ import {
   View,
   Text,
 } from 'react-native';
+
+import PropTypes from 'prop-types';
 import { ThemedButton } from 'react-native-really-awesome-button';
+import { Entypo } from '@expo/vector-icons';
 
 const Home = ({ navigation }) => {
 
@@ -25,7 +28,14 @@ const Home = ({ navigation }) => {
           backgroundDarker='#2f3e53'
           textSize={30}
           onPress={() => navigation.navigate('Define')}
-        ><Text style={styles.btnText}>Define a word</Text></ThemedButton>
+        >
+          <View style={styles.buttonContent}>
+            <Entypo name="book" size={24} color="white" />
+            <View style={{ width: '85%' }}>
+              <Text style={styles.btnText}>Define a word</Text>
+            </View>
+          </View>
+        </ThemedButton>
         <ThemedButton
           name="bruce"
           type="primary"
@@ -37,10 +47,23 @@ const Home = ({ navigation }) => {
           textSize={30}
           style={{ marginTop: 20 }}
           onPress={() => navigation.navigate('Translate')}
-        ><Text style={styles.btnText}>Translate a sentence</Text></ThemedButton>
+        >
+          <View style={styles.buttonContent}>
+            <Entypo name="text" size={24} color="white" />
+            <View style={{ width: '85%' }}>
+              <Text style={styles.btnText}>Translate a sentence</Text>
+            </View>
+          </View>
+        </ThemedButton>
       </View>
     </View >
   );
+};
+
+Home.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 const styles = StyleSheet.create({
@@ -74,6 +97,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
   },
+  buttonContent: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+  }
 });
 
 export default Home;

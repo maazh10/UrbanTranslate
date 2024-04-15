@@ -4,13 +4,15 @@ import {
     View,
     TextInput,
     Text,
-    ToastAndroid,
-    ScrollView
+    ScrollView,
+    Keyboard
 } from 'react-native';
 
 import { LinearGradient } from 'expo-linear-gradient';
 import { ThemedButton } from 'react-native-really-awesome-button';
 import TypeWriter from 'react-native-typewriter'
+import Toast from 'react-native-toast-message';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { ApiService } from '../services/ApiService';
 
@@ -22,25 +24,35 @@ const Translate = () => {
 
     const translate = async (text) => {
         if (!text) {
-            ToastAndroid.show('Please enter text to translate', ToastAndroid.SHORT);
-            return;
+            Toast.show({
+                type: 'error',
+                position: 'bottom',
+                text1: 'Error',
+                text2: 'Please enter some text to translate',
+                visibilityTime: 3000,
+                autoHide: true,
+            });
+            return false;
         }
         try {
             const api = new ApiService();
             const res = await api.translate(text);
             const translation = res.translation;
             setTranslatedText(translation);
+            return true;
         } catch (error) {
             setTranslatedText('An error occurred while translating the text');
         }
     };
 
     const handleProgress = async (release) => {
+        Keyboard.dismiss();
         if (release) {
-            await translate(inputText);
+            const req = await translate(inputText);
             setTyping(true);
             release();
-            setShowBottomContainer(true);
+            if (req)
+                setShowBottomContainer(true);
         }
     }
 
@@ -93,7 +105,14 @@ const Translate = () => {
                                 start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}
                                 style={{ ...StyleSheet.absoluteFillObject }}
                             />
-                        }><Text style={styles.btnText}>Translate</Text></ThemedButton>
+                        }>
+                        <View style={styles.buttonContent}>
+                            <MaterialCommunityIcons name="translate" size={24} color="white" />
+                            <View style={{ width: '50%', alignItems: 'center' }}>
+                                <Text style={styles.btnText}>Translate</Text>
+                            </View>
+                        </View>
+                    </ThemedButton>
                 </View>
 
             </View>
@@ -148,6 +167,12 @@ const styles = StyleSheet.create({
         fontSize: 25,
         letterSpacing: 2,
     },
+    buttonContent: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+    }
 });
 
 export default Translate;
