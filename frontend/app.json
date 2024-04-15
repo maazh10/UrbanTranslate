@@ -21,14 +21,24 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#f8f9fa"
-      }
+      },
+      "package": "com.maazh10.UrbanTranslate"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "androidStatusBar": {
+      "backgroundColor": "#f8f9fa",
+      "barStyle": "dark-content"
+    },
     "androidNavigationBar": {
       "visible": true,
       "backgroundColor": "#f8f9fa"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c4cb4b72-4ac0-4238-af94-e76d41f79f25"
+      }
     }
   }
 }
