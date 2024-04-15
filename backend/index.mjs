@@ -53,12 +53,16 @@ const translate = async (sentence, words, definitions) => {
 
 app.get('/define/:word', async (req, res) => {
     const word = req.params.word;
+    if (!word)
+        res.status(400).send('Word parameter is required');
     const def = await define(word);
     res.send(def);
 });
 
 app.get('/translate/:sentence', async (req, res) => {
     const sentence = req.params.sentence;
+    if (!sentence)
+        res.status(400).send('Sentence parameter is required');
     const words = tokenizeText(sentence);
     const definitions = await Promise.all(words.map(
         async (word) => (await define(word)).definition));
