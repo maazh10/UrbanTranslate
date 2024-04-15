@@ -8,7 +8,8 @@ import {
     Keyboard,
     Text,
     ScrollView,
-    ActivityIndicator
+    ActivityIndicator,
+    StatusBar
 } from 'react-native';
 
 import { AntDesign } from '@expo/vector-icons';
@@ -68,6 +69,11 @@ const Define = () => {
 
     return (
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+
+            <StatusBar
+                backgroundColor="#1f2937"
+                barStyle="light-content"
+            />
 
             <View style={styles.container}>
 

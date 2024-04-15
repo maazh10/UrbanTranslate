@@ -5,7 +5,8 @@ import {
     TextInput,
     Text,
     ScrollView,
-    Keyboard
+    Keyboard,
+    StatusBar
 } from 'react-native';
 
 import { LinearGradient } from 'expo-linear-gradient';
@@ -58,6 +59,11 @@ const Translate = () => {
 
     return (
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+
+            <StatusBar
+                backgroundColor="#1f2937"
+                barStyle="light-content"
+            />
 
             <View style={styles.container}>
 
