@@ -2,6 +2,7 @@ import axios from 'axios';
 import express from 'express';
 import OpenAI from 'openai';
 import 'dotenv/config'
+import serverless from 'serverless-http';
 
 const app = express();
 const port = 3000;
@@ -70,3 +71,5 @@ app.get('/translate/:sentence', async (req, res) => {
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
+
+export const handler = serverless(app);
