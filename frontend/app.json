@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "UrbanTranslate",
+    "name": "Urban Translate",
     "slug": "UrbanTranslate",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -18,10 +18,6 @@
       "supportsTablet": true
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/icon.png",
-        "backgroundColor": "#f8f9fa"
-      },
       "package": "com.maazh10.UrbanTranslate"
     },
     "web": {
@@ -32,7 +28,6 @@
       "barStyle": "dark-content"
     },
     "androidNavigationBar": {
-      "visible": true,
       "backgroundColor": "#f8f9fa"
     },
     "extra": {

@@ -2,16 +2,16 @@
     "build": {
       "production": {
         "env": {
-            "EXPO_PUBLIC_API_URL": "https://qdtznw6cqfw777a6fk6o2nasw40gacsz.lambda-url.us-east-1.on.aws/api/"
+          "EXPO_PUBLIC_API_URL": "https://qdtznw6cqfw777a6fk6o2nasw40gacsz.lambda-url.us-east-1.on.aws/api/"
         }
       },
       "test": {
         "env": {
-            "EXPO_PUBLIC_API_URL": "https://qdtznw6cqfw777a6fk6o2nasw40gacsz.lambda-url.us-east-1.on.aws/api/"
+          "EXPO_PUBLIC_API_URL": "https://qdtznw6cqfw777a6fk6o2nasw40gacsz.lambda-url.us-east-1.on.aws/api/"
         },
         "android": {
-            "buildType": "apk"
-          }
+          "buildType": "apk"
+        }
       }     
     }    
 }

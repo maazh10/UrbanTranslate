@@ -3,6 +3,8 @@ import {
   StyleSheet,
   View,
   Text,
+  StatusBar,
+  Image
 } from 'react-native';
 
 import PropTypes from 'prop-types';
@@ -12,12 +14,24 @@ import { Entypo } from '@expo/vector-icons';
 const Home = ({ navigation }) => {
 
   return (
+
     <View style={styles.container}>
+
+      <StatusBar
+        backgroundColor="#f8f9fa"
+        barStyle="dark-content"
+      />
+
       <View style={styles.top}>
-        <Text style={styles.welcome}>Welcome to 👋</Text>
-        <Text style={styles.title}>Urban Translate.</Text>
+        <Image
+          source={require('../assets/splash.png')}
+          style={{ width: '100%', height: 150 }}
+          resizeMode='contain'
+        />
       </View>
+
       <View style={styles.bottom}>
+
         <ThemedButton
           name="bruce"
           type="primary"
@@ -29,13 +43,16 @@ const Home = ({ navigation }) => {
           textSize={30}
           onPress={() => navigation.navigate('Define')}
         >
+
           <View style={styles.buttonContent}>
             <Entypo name="book" size={24} color="white" />
             <View style={{ width: '85%' }}>
               <Text style={styles.btnText}>Define a word</Text>
             </View>
           </View>
+
         </ThemedButton>
+
         <ThemedButton
           name="bruce"
           type="primary"
@@ -48,15 +65,20 @@ const Home = ({ navigation }) => {
           style={{ marginTop: 20 }}
           onPress={() => navigation.navigate('Translate')}
         >
+
           <View style={styles.buttonContent}>
             <Entypo name="text" size={24} color="white" />
             <View style={{ width: '85%' }}>
               <Text style={styles.btnText}>Translate a sentence</Text>
             </View>
           </View>
+
         </ThemedButton>
+
       </View>
+
     </View >
+
   );
 };
 
@@ -69,24 +91,12 @@ Home.propTypes = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
     backgroundColor: '#f8f9fa',
     paddingVertical: 100,
-    paddingHorizontal: 35,
+    paddingHorizontal: 20,
   },
   top: {
     width: '100%',
-  },
-  welcome: {
-    fontSize: 30,
-    color: '#1f2937',
-    marginBottom: 10,
-  },
-  title: {
-    fontSize: 45,
-    fontWeight: 'bold',
-    color: '#1f2937',
-    marginBottom: 20,
   },
   bottom: {
     flex: 1,
