@@ -20,17 +20,57 @@ const tokenizeText = (text) => {
     return words.filter((word) => !stopWords.includes(word));
 }
 
+const scoreRecency = (definitions) => {
+    const currentDate = new Date();
+    const scores = [];
+
+    let maxDate = new Date(0);
+    for (const definition of definitions) {
+        const writtenDate = new Date(definition.written_on);
+        if (writtenDate > maxDate) {
+            maxDate = writtenDate;
+        }
+    }
+
+    for (const definition of definitions) {
+        const writtenDate = new Date(definition.written_on);
+        const timeDifference = currentDate.getTime() - writtenDate.getTime();
+        const maxTimeDifference = currentDate.getTime() - maxDate.getTime();
+        const score = 1 - (timeDifference / maxTimeDifference);
+        scores.push({ definition: definition.definition, score: score });
+    }
+
+    return scores;
+}
+
 const define = async (word) => {
     const response = await axios.get(`https://api.urbandictionary.com/v0/define?term=${word}`);
     if (response.data.list.length === 0)
         return { definition: 'No definition found', example: '' };
-    const def = response.data.list.reduce((acc, curr) => {
-        if (curr.thumbs_up > acc.thumbs_up) {
-            return curr;
+
+    let topScore = 0
+    let bestDef = null;
+    response.data.list.forEach((def) => {
+        const thumbs_down = def.thumbs_down == 0 ? 1 : def.thumbs_down;
+        const ratio = def.thumbs_up / thumbs_down;
+        const total = def.thumbs_up + def.thumbs_down;
+
+        const timeScores = scoreRecency(response.data.list);
+        let score = 0.7 * ratio + 0.05 * total;
+        timeScores.forEach((curr) => {
+            if (curr.definition === def.definition)
+                score += 0.25 * curr.score;
+        });
+
+        if (score > topScore) {
+            topScore = score;
+            bestDef = def;
         }
-        return acc;
     });
-    return def;
+
+    bestDef.definition = bestDef.definition.replace(/[\[\]]/g, '');
+    bestDef.example = bestDef.example.replace(/[\[\]]/g, '');
+    return bestDef;
 }
 
 const translate = async (sentence, words, definitions) => {
