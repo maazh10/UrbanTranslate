@@ -14,8 +14,16 @@ class ApiService {
 
     async translate(text) {
         text = text.split(' ').join('%20');
-        const response = await this.api.get(`/translate/${text}`);
-        return response.data;
+        try {
+            const response = await this.api.get(`/translate/${text}`);
+            return response.data;
+        }
+        catch (error) {
+            console.error('Error translating text:', error);
+            return {
+                translation: 'An error occurred while translating the text'
+            };
+        }
     }
 }
 

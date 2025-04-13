@@ -31,19 +31,15 @@ const Translate = () => {
                 text1: 'Error',
                 text2: 'Please enter some text to translate',
                 visibilityTime: 3000,
-                autoHide: true,
+                autoHide: true,ß
             });
             return false;
         }
-        try {
-            const api = new ApiService();
-            const res = await api.translate(text);
-            const translation = res.translation;
-            setTranslatedText(translation);
-            return true;
-        } catch (error) {
-            setTranslatedText('An error occurred while translating the text');
-        }
+        const api = new ApiService();
+        const res = await api.translate(text);
+        const translation = res.translation;
+        setTranslatedText(translation);
+        return true;
     };
 
     const handleProgress = async (release) => {
